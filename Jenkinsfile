@@ -1,14 +1,17 @@
 pipeline {
     agent any
+    tools {
+        maven 'M3' // Name of the Maven tool configured in Jenkins
+    }
     stages {
         stage('Checkout') {
             steps {
-                checkout scm // Checks out code from GitHub
+                checkout scm
             }
         }
         stage('Build') {
             steps {
-                bat 'mvn clean package' // Builds the Maven project
+                bat 'mvn clean package' // Use 'bat' for Windows
             }
         }
     }
