@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'M3' // Name of the Maven tool configured in Jenkins
+        maven 'M3'   // Match Maven tool name in Jenkins
     }
     stages {
         stage('Checkout') {
@@ -9,9 +9,16 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Debug') {
+            steps {
+                bat 'echo JAVA_HOME=%JAVA_HOME%'
+                bat 'echo MAVEN_HOME=%MAVEN_HOME%'
+                bat 'mvn --version'  // Verify Maven is recognized
+            }
+        }
         stage('Build') {
             steps {
-                bat 'mvn clean package' // Use 'bat' for Windows
+                bat 'mvn clean package'
             }
         }
     }
